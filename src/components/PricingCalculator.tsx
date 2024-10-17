@@ -55,6 +55,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ isOpen, onClose, size }) => {
 
 const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   const [diskSize, setDiskSize] = useState<number>(8);
+  const [iopsInput, setIopsInput] = useState<string>('3000');
   const [iops, setIops] = useState<number>(3000);
   const [totalCost, setTotalCost] = useState<number>(0);
   const [selectedComputeSize, setSelectedComputeSize] = useState<string>('Micro');
@@ -170,10 +171,12 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
 
   const handleIopsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setIops(newValue === '' ? '' : Number(newValue));
+    setIopsInput(newValue);
     
     if (newValue !== '') {
       const numValue = Number(newValue);
+      setIops(numValue);
+      
       const minIops = storageType === 'gp3' ? 3000 : 100;
       const maxIops = getMaxIops();
       if (numValue < minIops) {
@@ -186,6 +189,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
     } else {
       setIopsWarning('');
     }
+    
     calculateTotalCost();
   };
 
@@ -439,7 +443,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             <input
               type="number"
               id="iops"
-              value={iops}
+              value={iopsInput}
               onChange={handleIopsChange}
               className="w-24 p-2 border rounded-l-lg text-right"
             />
