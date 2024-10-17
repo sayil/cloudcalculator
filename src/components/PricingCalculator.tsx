@@ -64,7 +64,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   const [selectedInfoSize, setSelectedInfoSize] = useState<ComputeSize | null>(null);
   const [diskSizeWarning, setDiskSizeWarning] = useState<string>('');
   const [iopsWarning, setIopsWarning] = useState<string>('');
-  const [usedSpace, setUsedSpace] = useState<number>(0.59); // GB
+  const [usedSpace, _setUsedSpace] = useState<number>(0.59); // GB
 
 
 
